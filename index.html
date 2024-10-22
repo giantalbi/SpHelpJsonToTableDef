@@ -8,6 +8,7 @@
             var jsonElement;
             var tableDefElement;
             var btnCopyElement;
+            var btnApplyElement;
 
             var columnLenghtExclusion = ["int", "uniqueidentifier"]
 
@@ -15,8 +16,12 @@
                 jsonElement = $("#json");
                 tableDefElement = $("#tableDef");
                 btnCopyElement = $("#btnCopy");
+                btnApplyElement = $("#btnApply");
+
+                tableDefElement.val("");
 
                 jsonElement.on("change", onJsonInput)
+                btnApplyElement.on("click", onJsonInput)
                 btnCopyElement.on("click", selectTableDef);
 
             })
@@ -30,7 +35,7 @@
                 var json = JSON.parse(jsonStr);
                 var tableStr = "";
 
-                json.forEach(j => {
+                json.forEach((j, i) => {
                     tableStr += j.Column_name;
                     
                     tableStr += " ";
@@ -46,6 +51,9 @@
                     }else{
                         tableStr += "NULL";
                     }
+                    if(i < json.length - 1)
+                        tableStr += ",";
+
                     tableStr += "\n";
                 });
 
@@ -62,7 +70,10 @@
                 <h4 class="col-6">JSON Input</h4>
                 <div class="col-6 d-flex justify-content-between">
                     <h4>Table definition</h4>
-                    <button class="btn btn-primary" id="btnCopy">Copy</button>
+                    <div>
+                        <button class="btn btn-primary" id="btnApply">Apply</button>
+                        <button class="btn btn-primary" id="btnCopy">Copy</button>
+                    </div>
                 </div>
             </div>
             <div class="row">
