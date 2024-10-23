@@ -11,6 +11,7 @@
             var btnApplyElement;
 
             var columnLenghtExclusion = ["int", "uniqueidentifier", "bit", "smalldatetime", "datetime"]
+            var columnScaleInclusion = ["decimal"]
 
             $(document).ready(() => {
                 jsonElement = $("#json");
@@ -42,7 +43,12 @@
                     
                     tableStr += j.Type;
                     if(!columnLenghtExclusion.includes(j.Type)){
-                        tableStr += "(" + j.Length + ")";
+                        if(columnScaleInclusion.includes(j.Type){
+                            tableStr += "(" + j.Length + ","+ j.Scale +")";
+                        }
+                        else{
+                            tableStr += "(" + j.Length + ")";
+                        }
                     }
 
                     tableStr += " ";
